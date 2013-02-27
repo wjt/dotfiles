@@ -1,0 +1,25 @@
+#!/bin/bash
+set -e -x
+
+go () {
+#echo setting props on $id
+$XINPUT set-prop "$id" --type=int --format=8 'Evdev Wheel Emulation' 1
+$XINPUT set-prop "$id" --type=int --format=8 'Evdev Wheel Emulation Button' 2
+$XINPUT set-prop "$id" --type=int --format=16 'Evdev Wheel Emulation Timeout' 200
+}
+
+if [ -z "$XINPUT" ]; then
+    XINPUT='xinput'
+fi
+
+if [ -z "$id" ]; then
+  id='TPPS/2 IBM TrackPoint'
+  go
+  id='pointer:Lite-On Technology Corp. ThinkPad USB Keyboard with TrackPoint'
+  go
+  id='PixArt USB Optical Mouse'
+  go
+else
+  go
+fi
+
